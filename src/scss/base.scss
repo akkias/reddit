@@ -1,0 +1,21 @@
+@import 'mixins';
+@import 'colors';
+@import 'typography';
+@import 'variables';
+@import 'reboot';
+@import 'sidebar';
+@import 'header';
+@import 'posts';
+
+.app-container {
+    padding: 0 50px 0 300px;
+}
+.text-primary {
+    color: $color-orange !important;
+}
+.text-secondary {
+    color: $color-purple !important;
+}
+.text-tertiary {
+    color: $color-blue-dark !important;
+}

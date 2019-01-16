@@ -1,0 +1,94 @@
+@mixin hover {
+    &:hover { @content; }
+  }
+  
+  @mixin hover-focus {
+    &:hover,
+    &:focus {
+      @content;
+    }
+  }
+  
+  @mixin plain-hover-focus {
+    &,
+    &:hover,
+    &:focus {
+      @content;
+    }
+  }
+  
+  @mixin hover-focus-active {
+    &:hover,
+    &:focus,
+    &:active {
+      @content;
+    }
+  }
+
+  /**
+ * transition mixin
+ * @type {map}
+ */
+@mixin transition-mixin($properties...) {
+  $declarations: ();
+
+  @each $declaration in $properties {
+      $duration: .25s;
+      $delay: false;
+      $timing-function: ease;
+      $property: all;
+
+      @if type-of($declaration) == 'map' {
+          $duration: if(map_get($declaration, 'duration'), #{map_get($declaration, 'duration')}, $duration);
+          $delay: if(map_get($declaration, 'delay'), #{map_get($declaration, 'delay')}, $delay);
+          $timing-function: if(map_get($declaration, 'timing-function'), #{map_get($declaration, 'timing-function')}, $timing-function);
+          $property: if(map_get($declaration, 'property'), #{map_get($declaration, 'property')}, $property);
+      } @else {
+          $property: $declaration;
+      }
+      
+      $delayValue: if($delay, ' ' + $delay, '');
+      $declarations: append($declarations, #{$property + ' ' + $duration + $delayValue + ' ' + $timing-function}, comma);
+  }
+
+  transition: $declarations;
+}
+
+//To create spacing related classes
+$spacer: 5px;
+$spacer-x: $spacer;
+$spacer-y: $spacer;
+
+$spacers: ();
+
+@for $i from 0 through 6 {
+  $spacers: map-merge($spacers, (
+    $i: (
+      x: $spacer-x * $i,
+      y: $spacer-y * $i
+    )
+  )) 
+}
+
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $size, $lengths in $spacers {
+    $length-x:   map-get($lengths, x);
+    $length-y:   map-get($lengths, y);
+
+    .#{$abbrev}-a-#{$size} { #{$prop}:        $length-y $length-x !important; } // a = All sides
+    .#{$abbrev}-t-#{$size} { #{$prop}-top:    $length-y !important; }
+    .#{$abbrev}-r-#{$size} { #{$prop}-right:  $length-x !important; }
+    .#{$abbrev}-b-#{$size} { #{$prop}-bottom: $length-y !important; }
+    .#{$abbrev}-l-#{$size} { #{$prop}-left:   $length-x !important; }
+
+    // Axes
+    .#{$abbrev}-x-#{$size} {
+      #{$prop}-right:  $length-x !important;
+      #{$prop}-left:   $length-x !important;
+    }
+    .#{$abbrev}-y-#{$size} {
+      #{$prop}-top:    $length-y !important;
+      #{$prop}-bottom: $length-y !important;
+    }
+  }
+}

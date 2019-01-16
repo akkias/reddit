@@ -1,0 +1,68 @@
+.app-sidebar {
+    background: $color-white;
+    box-shadow: 0 1px 20px rgba($color-black, .05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px 30px;
+    position: fixed;
+    left: 0;
+    width: 250px;
+}
+.app-brand {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.app-sidebar-search {
+    display: inline-block;
+    margin-left: -30px;
+    margin-bottom: 30px;
+    position: relative;
+    width: calc(100% + 30px);
+    &-icon {
+        color: $color-gray;
+        font-size: 16px;
+        position: absolute;
+        right: 15px;
+        top: 12px;
+    }
+    .app-form-control--search {
+        background: $color-white;
+        border: 1px solid #E4E5EC;
+        border-left: none;
+        border-radius: 0 20px 20px 0;
+        box-shadow: 0 2px 1px 0 rgba($color-black, .03);
+        display: block;
+        height: 40px;
+        padding: 0 35px 0 30px;
+        width: 100%;
+        @include transition-mixin('border-color','box-shadow');
+        &:focus {
+            outline: none;
+            border-color: darken($color-gray, 10%);
+            box-shadow: 0 4px 5px 0 rgba($color-black, .05);
+        }
+    }
+}
+.app-list {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    a {
+        color: $color-blue-dark;
+        display: block;
+        font-weight: $font-weight-semibold;
+        line-height: 34px;
+        text-decoration: $link-decoration;
+        @include transition-mixin('color');
+        &:hover,
+        &.active {
+            color: $color-orange;
+        }
+    }
+    + .app-list {
+        overflow: auto;
+        margin-top: 30px;
+        padding-top: 30px;
+    }
+}

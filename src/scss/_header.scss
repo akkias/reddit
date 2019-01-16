@@ -1,0 +1,54 @@
+.app-header {
+    display: flex;
+    padding: 20px 0;
+        a {
+            color: $color-blue-dark;
+            display: inline-block;
+            font-weight: $font-weight-semibold;
+            padding: 0 20px;
+            line-height: 40px;
+            text-decoration: $link-decoration;
+            @include transition-mixin('color');
+            &:hover{
+                color: $color-orange;
+            }
+            &.active {
+                color: $color-orange;
+                box-shadow: 0 -2px 0 inset $color-orange;
+            }
+    }
+    &-actions {
+        margin-left: auto;
+        .btn {
+            background-image: linear-gradient(0deg, #FF7B00 0%, #FD4500 100%);   
+            border: 0;
+            border-radius: 30px;
+            color: $color-white;
+            font-weight: $font-weight-semibold;
+            line-height: 40px;
+            padding: 0 30px;
+            position: relative;
+            z-index: 1;
+            @include transition-mixin('box-shadow');
+            &::before {
+                content: "";
+                background-image: linear-gradient(0deg, #FD4500 0%, #FF7B00 100%);
+                border-radius: 30px;
+                left: 0;
+                height: 100%;
+                opacity: 0;
+                position: absolute;
+                transition: opacity 0.4s;
+                top: 0;
+                width: 100%;
+                z-index: -1;
+            }
+            &:hover {
+                box-shadow: 0 4px 5px 0 rgba($color-gray, 1);
+                &::before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
